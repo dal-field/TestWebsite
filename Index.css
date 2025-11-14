@@ -1,0 +1,100 @@
+body index.html{
+  background-color: rgb(135, 132, 132);
+}
+.page-wrapper{
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  background-color: rgb(8, 131, 137);
+  border-radius: 30px;
+  box-shadow: 0 0 10px 2px;
+  padding-bottom: 20px;
+  margin: 0 100px;
+}
+#todo-manager-image {
+  width: 200px;
+  justify-content: center;
+}
+#todo-manager-title {
+  color: white;
+  font-family: 'Georgia', sans-serif;
+  font-size: 40px;
+  margin: 10px;
+}
+#todo-manager-subtitle {
+  font-size: 25px;
+  color: white;
+  font-family: 'Georgia', sans-serif;
+  margin: 10px 0 20px 0;
+  text-shadow: 2px 2px 4px  rgba(243, 240, 240, 0.5);
+}
+#todo-manager-image {
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+#login-title {
+  display: inline-block;
+  font-size: 18px;
+  color: black;
+  font-family: 'Georgia', sans-serif;
+  margin-bottom: 5px;
+}
+.login-boxes {
+  width: 150px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  text-align: left;
+}
+#login-button {
+  width: 100px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin: 10px auto;
+  text-align: center;
+  background-color: #333436;
+  color: white;
+}
+#login-button:hover {
+  background-color: white;
+  cursor: url("https://thumbs.dreamstime.com/b/harry-potter-icon-isolated-white-background-harry-potter-icon-spec-face-vector-illustration-136792581.jpg") 4 4, pointer;
+  transform: scale(1.05);
+  color: black;
+}
+#login-hint {
+  font-size: 14px;
+  color: black;
+  font-family: 'Georgia', sans-serif;
+  margin: 10px auto;
+  text-align: center;
+  font-style: italic;
+
+}
+.page1-wrapper{
+  background-color: rgb(249, 251, 251);
+  border-radius: 30px;
+  box-shadow: 0 0 10px 2px;
+  display: flex;
+  margin: 5px auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#logged-in-title {
+  margin-bottom: 5px;
+}
+#logged-in-subtitle1 {
+  margin-bottom: 0px;
+}
+#logged-in-subtitle2 {
+  margin-bottom: 10px;
+}
+#ron-and-harry-potter-image {
+  width: 300px;
+  margin: 10px auto;
+  border-radius: 10px;
+}
+#ron-and-harry-potter-image:hover {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 255, 0.5);
+}

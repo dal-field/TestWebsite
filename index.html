@@ -2,20 +2,27 @@
 <html>
   <head>
     <link rel="stylesheet" href="index.css" />
+    <title>Login</title>
   </head>
   <body>
+  <div class="page-wrapper">
     <div id="todo-manager">
-      <h1 id="todo-manager-title">To-Do Manager</h1>
-      <h4 id="todo-manager-subtitle">by LitFlow</h4> 
+      <p id="todo-manager-title">Pocket Defender</p>
+      <p id="todo-manager-subtitle">by LitFlow</p>
       <a href= "https://www.litflow.io" target="_blank">
-        <img id="todo-manager-image" src="https://images.squarespace-cdn.com/content/v1/6830ef7ba7c0141e995f20a1/642f72a5-eddb-40bc-bdf9-a07a69663120/istockphoto-930750572-612x612.jpg?format=2500w" target="_blank"></img>
+        <img id="todo-manager-image" src="https://images.squarespace-cdn.com/content/v1/6830ef7ba7c0141e995f20a1/642f72a5-eddb-40bc-bdf9-a07a69663120/istockphoto-930750572-612x612.jpg?format=2500w" alt="To-Do Manager" />
       </a>
-      <input type="text" id="new-task" placeholder="Enter a new task" />
-      <button id="add-task">Add Task</button>
-      <ul id="task-list">
-        <li>Existing Task 1 <button class="remove-btn">Remove</button></li>
-      </ul>
+      <br>
+      <h7 id="login-title"> <strong>Login:</strong></h7>
+      <br>
+      <input type="text" id="username" class="login-boxes" placeholder="Username" />
+      <br>
+      <input type="password" id="password" class="login-boxes" placeholder="Password" />
+      <br>
+      <button id="login-button" type="button">Login</button>
+      <p id="login-hint"> HINT: Username is "Dallin" <br>Password is "Password"</p>
     </div>
+  </div>
     <script src="index.js"></script>
   </body>
 </html>

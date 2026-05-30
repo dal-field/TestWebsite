@@ -1,28 +1,216 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="index.css" />
-    <title>Login</title>
-  </head>
-  <body>
-  <div class="page-wrapper">
-    <div id="todo-manager">
-      <p id="todo-manager-title">Pocket Defender</p>
-      <p id="todo-manager-subtitle">by LitFlow</p>
-      <a href= "https://www.litflow.io" target="_blank">
-        <img id="todo-manager-image" src="https://images.squarespace-cdn.com/content/v1/6830ef7ba7c0141e995f20a1/642f72a5-eddb-40bc-bdf9-a07a69663120/istockphoto-930750572-612x612.jpg?format=2500w" alt="To-Do Manager" />
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dallin Littlefield — Attorney & AI Software Builder</title>
+  <meta name="description" content="Dallin Littlefield is a practicing attorney and solo founder of Software-Yeah, designing and shipping AI-powered software for law firms, small businesses, and government." />
+  <meta name="author" content="Dallin Littlefield" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Dallin Littlefield — Attorney & AI Software Builder" />
+  <meta property="og:description" content="A practicing attorney who designs and ships AI-powered software — solo." />
+  <meta property="og:image" content="images/headshot.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient background -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__brand">
+        <span class="nav__logo">DL</span>
+        <span class="nav__name">Dallin Littlefield<small>Software-Yeah</small></span>
       </a>
-      <br>
-      <h7 id="login-title"> <strong>Login:</strong></h7>
-      <br>
-      <input type="text" id="username" class="login-boxes" placeholder="Username" />
-      <br>
-      <input type="password" id="password" class="login-boxes" placeholder="Password" />
-      <br>
-      <button id="login-button" type="button">Login</button>
-      <p id="login-hint"> HINT: Username is "Dallin" <br>Password is "Password"</p>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="nav__cta">Get in touch</a>
+      </nav>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
-    <script src="index.js"></script>
-  </body>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__content reveal">
+        <p class="hero__eyebrow"><span class="dot"></span> Attorney · Founder · Builder</p>
+        <h1 class="hero__title">
+          I build <span class="grad">AI-powered software</span> for the legal world &amp; beyond.
+        </h1>
+        <p class="hero__tagline" id="tagline">
+          A practicing attorney who designs and ships AI-powered software — solo.
+        </p>
+        <p class="hero__sub">
+          I'm Dallin Littlefield — a practicing attorney and solo founder of
+          <strong>Software-Yeah</strong>. I turn firsthand experience inside the legal and
+          criminal-justice system into real products that ship.
+        </p>
+        <div class="hero__actions">
+          <a href="#work" class="btn btn--primary">View my work <span aria-hidden="true">→</span></a>
+          <a href="#contact" class="btn btn--ghost">Hire me to build something</a>
+        </div>
+        <ul class="hero__stats">
+          <li><strong>7</strong><span>products shipped</span></li>
+          <li><strong>100%</strong><span>designed &amp; built solo</span></li>
+          <li><strong>Live</strong><span>in real-world use</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__portrait reveal">
+        <div class="portrait">
+          <img src="images/headshot.jpg" alt="Dallin Littlefield" onerror="this.classList.add('is-missing')" />
+          <span class="portrait__fallback" aria-hidden="true">DL</span>
+        </div>
+        <div class="portrait__badge">
+          <span class="portrait__badge-dot"></span> Available for projects
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust strip -->
+    <section class="marquee" aria-label="Credentials">
+      <div class="marquee__track">
+        <span>Criminal Defense Attorney</span><span aria-hidden="true">✦</span>
+        <span>CJCC Director, Tooele County</span><span aria-hidden="true">✦</span>
+        <span>Founder of LitFlow &amp; Software-Yeah</span><span aria-hidden="true">✦</span>
+        <span>Claude · Supabase · Plaid · Resend</span><span aria-hidden="true">✦</span>
+        <span>Criminal Defense Attorney</span><span aria-hidden="true">✦</span>
+        <span>CJCC Director, Tooele County</span><span aria-hidden="true">✦</span>
+        <span>Founder of LitFlow &amp; Software-Yeah</span><span aria-hidden="true">✦</span>
+        <span>Claude · Supabase · Plaid · Resend</span><span aria-hidden="true">✦</span>
+      </div>
+    </section>
+
+    <!-- Featured project -->
+    <section class="section" id="work">
+      <div class="section__head reveal">
+        <p class="section__eyebrow">Flagship</p>
+        <h2 class="section__title">The work I'm most proud of</h2>
+      </div>
+
+      <article class="featured reveal">
+        <div class="featured__media">
+          <img src="images/pocket-defender.png" alt="Pocket Defender screenshot" onerror="this.closest('.featured__media').classList.add('is-missing')" />
+          <div class="featured__media-fallback">
+            <span class="featured__shield">🛡️</span>
+            <span>Pocket Defender</span>
+          </div>
+        </div>
+        <div class="featured__body">
+          <p class="featured__kicker">A LitFlow product · Flagship</p>
+          <h3 class="featured__title">Pocket Defender</h3>
+          <p class="featured__lead">
+            "Your defense practice in your pocket — and on your computer." A comprehensive,
+            AI-powered case &amp; client management platform built specifically for
+            <strong>criminal defense attorneys</strong>. I designed, built, and now run it as
+            founder — and use it daily in my own criminal-defense practice.
+          </p>
+          <ul class="featured__points">
+            <li><strong>AI Agent Access</strong> — connect Claude (or any model) to act on cases, retrieve info, and assist with management.</li>
+            <li><strong>AI Document Extraction</strong> — pull client details and summarize discovery from documents, screenshots, and text.</li>
+            <li><strong>AI Drafting</strong> — generate motions, plea statements, proposed orders &amp; filings, with preview-before-generate.</li>
+            <li><strong>Full practice toolkit</strong> — secure client portal, daily docket, hearing-prep tracker, automated tasks, Google Calendar &amp; Drive sync, two-way SMS, and firm-wide reporting.</li>
+          </ul>
+          <div class="badges">
+            <span class="badge">Claude AI</span>
+            <span class="badge">Supabase</span>
+            <span class="badge">PWA</span>
+            <span class="badge">GitHub</span>
+            <span class="badge">Stripe-ready</span>
+          </div>
+          <div class="featured__actions">
+            <a href="https://pd.litflow.io/landing/" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Visit Pocket Defender <span aria-hidden="true">↗</span></a>
+            <a href="https://www.litflow.io" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">LitFlow</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Project grid -->
+    <section class="section section--tight">
+      <div class="section__head reveal">
+        <p class="section__eyebrow">Portfolio</p>
+        <h2 class="section__title">More things I've built</h2>
+        <p class="section__desc">Every one of these I designed and shipped solo — from public-facing sites to secure data dashboards.</p>
+      </div>
+
+      <div class="grid" id="projectGrid"><!-- cards injected by script.js --></div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about">
+      <div class="about__media reveal">
+        <div class="portrait portrait--sm">
+          <img src="images/headshot.jpg" alt="Dallin Littlefield" onerror="this.classList.add('is-missing')" />
+          <span class="portrait__fallback" aria-hidden="true">DL</span>
+        </div>
+      </div>
+      <div class="about__body reveal">
+        <p class="section__eyebrow">About</p>
+        <h2 class="section__title">Lawyer who codes. Builder who knows the law.</h2>
+        <p>
+          I'm a practicing attorney and the solo founder of <strong>Software-Yeah</strong>,
+          where I build AI-powered software and websites for law firms and small businesses.
+          I run my own estate-planning firm (Blackrock Law) and criminal-defense practice
+          (Littlefield Legal), so I build for problems I actually live with every day.
+        </p>
+        <p>
+          As <strong>Director of the Tooele County Criminal Justice Coordinating Council</strong>,
+          I work across the entire criminal-justice system — prosecution, defense, victim
+          services, rehabilitation, probation, and government administration. That perspective
+          shapes everything I ship: tools that are genuinely useful to the people who use them.
+        </p>
+        <p>
+          When I see a problem, I don't just write a memo about it — I design the product, write
+          the code, and put it in front of real users. Every project on this page is proof.
+        </p>
+        <div class="about__creds">
+          <div class="cred"><strong>Attorney</strong><span>Estate planning &amp; criminal defense</span></div>
+          <div class="cred"><strong>CJCC Director</strong><span>Tooele County, Utah</span></div>
+          <div class="cred"><strong>Founder</strong><span>LitFlow · Software-Yeah</span></div>
+          <div class="cred"><strong>Solo builder</strong><span>Design → code → ship</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+      <div class="contact__card reveal">
+        <p class="section__eyebrow">Let's talk</p>
+        <h2 class="contact__title">Have something you want built?</h2>
+        <p class="contact__sub">
+          Whether it's an AI tool for your firm, a website, or an automation that saves your team
+          hours — tell me what you're trying to do and I'll tell you how I'd build it.
+        </p>
+        <a href="mailto:dallin@litflow.io?subject=Let's%20build%20something" class="btn btn--primary btn--lg">
+          dallin@litflow.io
+        </a>
+        <p class="contact__fineprint">I read and reply to every message personally.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="nav__logo">DL</span>
+      <p>© <span id="year"></span> Dallin Littlefield · Software-Yeah. Designed &amp; built solo.</p>
+      <a href="#top" class="footer__top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>

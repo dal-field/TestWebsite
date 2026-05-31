@@ -1,7 +1,7 @@
 # Dallin Littlefield — Portfolio
 
 A single-page portfolio branding Dallin Littlefield as an attorney and AI software
-builder (solo founder of Software-Yeah / LitFlow). Sleek dark + techy design, no build
+builder (founder of LitFlow). Sleek dark + techy design, no build
 step — just static HTML, CSS, and vanilla JS.
 
 ## Structure

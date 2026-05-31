@@ -302,6 +302,14 @@ img { display: block; max-width: 100%; }
   content: ""; position: absolute; left: 0; top: 9px; width: 9px; height: 9px; border-radius: 3px;
   background: var(--grad); box-shadow: 0 0 10px rgba(45,212,191,0.6);
 }
+.featured__status {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.88rem; color: var(--text-dim);
+  padding: 12px 14px; margin-bottom: 18px;
+  border: 1px solid var(--panel-border); border-radius: var(--radius-sm);
+  background: rgba(45, 212, 191, 0.05);
+}
+.featured__status .dot { margin-top: 7px; flex-shrink: 0; }
 .featured__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* ---------- Badges ---------- */

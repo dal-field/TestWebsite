@@ -142,6 +142,45 @@ if ('IntersectionObserver' in window) {
   revealEls.forEach((el) => el.classList.add('is-visible'));
 }
 
+/* ---- Flagship carousel ---- */
+(function () {
+  const root = document.getElementById('pdCarousel');
+  if (!root) return;
+  const slides = Array.from(root.querySelectorAll('.carousel__slide'));
+  const dotsWrap = document.getElementById('pdDots');
+  const prev = document.getElementById('pdPrev');
+  const next = document.getElementById('pdNext');
+  let i = 0;
+  let timer;
+
+  const dots = slides.map((_, idx) => {
+    const b = document.createElement('button');
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', `Screenshot ${idx + 1}`);
+    b.addEventListener('click', () => { go(idx); restart(); });
+    dotsWrap.appendChild(b);
+    return b;
+  });
+
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
+  }
+  function restart() {
+    clearInterval(timer);
+    timer = setInterval(() => go(i + 1), 5000);
+  }
+
+  prev.addEventListener('click', () => { go(i - 1); restart(); });
+  next.addEventListener('click', () => { go(i + 1); restart(); });
+  go(0);
+  restart();
+  // Pause on hover for readability
+  root.addEventListener('mouseenter', () => clearInterval(timer));
+  root.addEventListener('mouseleave', restart);
+})();
+
 /* ---- Footer year ---- */
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();

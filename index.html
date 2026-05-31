@@ -103,10 +103,28 @@
 
       <article class="featured reveal">
         <div class="featured__media">
-          <img src="images/pocket-defender.png" alt="Pocket Defender screenshot" onerror="this.closest('.featured__media').classList.add('is-missing')" />
-          <div class="featured__media-fallback">
-            <span class="featured__shield">🛡️</span>
-            <span>Pocket Defender</span>
+          <div class="carousel" id="pdCarousel">
+            <div class="carousel__track">
+              <figure class="carousel__slide is-active">
+                <img src="images/pd-dashboard.png" alt="Pocket Defender dashboard with client case list and hearing dates" />
+                <figcaption>Dashboard — every client, case number &amp; hearing at a glance</figcaption>
+              </figure>
+              <figure class="carousel__slide">
+                <img src="images/pd-docket.png" alt="Pocket Defender daily docket case view with charges, discovery and notes" />
+                <figcaption>Daily Docket — charges, discovery &amp; hearing notes per case</figcaption>
+              </figure>
+              <figure class="carousel__slide">
+                <img src="images/pd-document.png" alt="Pocket Defender AI document generation for a request for discovery" />
+                <figcaption>AI Document Generation — court-ready filings, auto-filled</figcaption>
+              </figure>
+              <figure class="carousel__slide">
+                <img src="images/pd-messages.png" alt="Pocket Defender two-way client messaging inbox" />
+                <figcaption>Messaging — two-way client communication, built in</figcaption>
+              </figure>
+            </div>
+            <button class="carousel__btn carousel__btn--prev" id="pdPrev" aria-label="Previous screenshot">‹</button>
+            <button class="carousel__btn carousel__btn--next" id="pdNext" aria-label="Next screenshot">›</button>
+            <div class="carousel__dots" id="pdDots" role="tablist" aria-label="Choose screenshot"></div>
           </div>
         </div>
         <div class="featured__body">

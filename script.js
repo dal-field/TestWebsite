@@ -181,6 +181,31 @@ if ('IntersectionObserver' in window) {
   root.addEventListener('mouseleave', restart);
 })();
 
+/* ---- Contact email: copy to clipboard with feedback ---- */
+(function () {
+  const link = document.getElementById('contactEmail');
+  if (!link) return;
+  const label = link.querySelector('.contact__email-label');
+  const email = link.dataset.email;
+  let resetTimer;
+
+  link.addEventListener('click', () => {
+    // Let the default mailto: action proceed for users with a mail client.
+    // Also copy the address so the click always does something useful.
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(email).then(() => {
+        link.classList.add('is-copied');
+        label.textContent = 'Copied to clipboard!';
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          link.classList.remove('is-copied');
+          label.textContent = email;
+        }, 2000);
+      }).catch(() => {});
+    }
+  });
+})();
+
 /* ---- Footer year ---- */
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();

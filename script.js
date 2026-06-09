@@ -1,6 +1,24 @@
 /* ============================================================
-   Dallin Littlefield — Portfolio interactions
+   Dallin Littlefield — AI Consulting site
    ============================================================ */
+
+/* ------------------------------------------------------------
+   CONFIG — set these two values to fully activate lead capture.
+   Until then, the site still works:
+     • "Book a consult" buttons smooth-scroll to the contact form.
+     • The contact form falls back to opening a pre-filled email.
+   ------------------------------------------------------------ */
+const CONSULT = {
+  // Your scheduling link (Calendly, Cal.com, etc.). Leave "" to scroll to the form instead.
+  BOOKING_URL: 'https://calendly.com/dallin-litflow/30min',
+  // A static-friendly form endpoint. Easiest: Web3Forms (https://web3forms.com) — free, no backend.
+  //   FORM_ENDPOINT: 'https://api.web3forms.com/submit'
+  //   WEB3FORMS_KEY: 'your-access-key'
+  // (Formspree also works: set FORM_ENDPOINT to your form URL and leave WEB3FORMS_KEY empty.)
+  FORM_ENDPOINT: '',
+  WEB3FORMS_KEY: '',
+  EMAIL: 'dallin@litflow.io',
+};
 
 /* ---- Project data (Pocket Defender is featured separately in HTML) ---- */
 const projects = [
@@ -176,31 +194,141 @@ if ('IntersectionObserver' in window) {
   next.addEventListener('click', () => { go(i + 1); restart(); });
   go(0);
   restart();
-  // Pause on hover for readability
   root.addEventListener('mouseenter', () => clearInterval(timer));
   root.addEventListener('mouseleave', restart);
 })();
 
-/* ---- Contact email: copy to clipboard with feedback ---- */
+/* ---- "Book a consult" buttons ---- */
+(function () {
+  const bookEls = document.querySelectorAll('.js-book');
+  const form = document.getElementById('consultForm');
+  bookEls.forEach((el) => {
+    if (CONSULT.BOOKING_URL) {
+      el.setAttribute('href', CONSULT.BOOKING_URL);
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener');
+    } else {
+      el.addEventListener('click', (e) => {
+        const contact = document.getElementById('contact');
+        if (!contact) return;
+        e.preventDefault();
+        contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const first = form && form.querySelector('input, textarea');
+        if (first) setTimeout(() => first.focus({ preventScroll: true }), 600);
+      });
+    }
+  });
+})();
+
+/* ---- Contact form ---- */
+(function () {
+  const form = document.getElementById('consultForm');
+  if (!form) return;
+  const note = document.getElementById('formNote');
+  const submit = form.querySelector('.form__submit');
+
+  const setNote = (msg, kind) => {
+    note.textContent = msg;
+    note.className = 'form__note' + (kind ? ' is-' + kind : '');
+  };
+
+  const fieldEls = () => ({
+    name: form.querySelector('#cf-name'),
+    email: form.querySelector('#cf-email'),
+    company: form.querySelector('#cf-company'),
+    help: form.querySelector('#cf-help'),
+    message: form.querySelector('#cf-msg'),
+    botcheck: form.querySelector('input[name="botcheck"]'),
+  });
+
+  const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = fieldEls();
+
+    // honeypot — silently accept bots, do nothing
+    if (f.botcheck && f.botcheck.checked) { setNote("Thanks — I'll be in touch.", 'success'); return; }
+
+    // validate
+    let ok = true;
+    [f.name, f.email, f.message].forEach((el) => {
+      const bad = !el.value.trim() || (el === f.email && !validEmail(el.value.trim()));
+      el.classList.toggle('invalid', bad);
+      if (bad) ok = false;
+    });
+    if (!ok) { setNote('Please add your name, a valid email, and a short message.', 'error'); return; }
+
+    const data = {
+      name: f.name.value.trim(),
+      email: f.email.value.trim(),
+      company: f.company.value.trim(),
+      help: f.help.value,
+      message: f.message.value.trim(),
+    };
+
+    // Path A: real async submission to a form endpoint (Web3Forms / Formspree)
+    if (CONSULT.FORM_ENDPOINT) {
+      submit.disabled = true;
+      setNote('Sending…', '');
+      try {
+        const payload = {
+          ...data,
+          subject: `New consult request from ${data.name}`,
+          from_name: data.name,
+        };
+        if (CONSULT.WEB3FORMS_KEY) payload.access_key = CONSULT.WEB3FORMS_KEY;
+        const res = await fetch(CONSULT.FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          form.reset();
+          setNote("Thanks — your message is on its way. I'll reply personally, usually within a day.", 'success');
+        } else {
+          setNote('Something went wrong. Please email me directly at ' + CONSULT.EMAIL + '.', 'error');
+        }
+      } catch (err) {
+        setNote('Network error. Please email me directly at ' + CONSULT.EMAIL + '.', 'error');
+      } finally {
+        submit.disabled = false;
+      }
+      return;
+    }
+
+    // Path B (default): open a pre-filled email so the form always does something useful
+    const subject = encodeURIComponent(`Consult request — ${data.name}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\n` +
+      `Email: ${data.email}\n` +
+      (data.company ? `Company/firm: ${data.company}\n` : '') +
+      `Interested in: ${data.help}\n\n` +
+      `${data.message}\n`
+    );
+    window.location.href = `mailto:${CONSULT.EMAIL}?subject=${subject}&body=${body}`;
+    setNote('Opening your email app… if nothing happens, email me at ' + CONSULT.EMAIL + '.', 'success');
+  });
+
+  // clear the invalid state as the user fixes a field
+  form.addEventListener('input', (e) => {
+    if (e.target.classList) e.target.classList.remove('invalid');
+  });
+})();
+
+/* ---- Email link: copy to clipboard with feedback (null-safe) ---- */
 (function () {
   const link = document.getElementById('contactEmail');
   if (!link) return;
-  const label = link.querySelector('.contact__email-label');
-  const email = link.dataset.email;
+  const email = link.dataset.email || link.textContent.trim();
+  const original = link.textContent;
   let resetTimer;
-
   link.addEventListener('click', () => {
-    // Let the default mailto: action proceed for users with a mail client.
-    // Also copy the address so the click always does something useful.
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(email).then(() => {
-        link.classList.add('is-copied');
-        label.textContent = 'Copied to clipboard!';
+        link.textContent = 'Copied to clipboard!';
         clearTimeout(resetTimer);
-        resetTimer = setTimeout(() => {
-          link.classList.remove('is-copied');
-          label.textContent = email;
-        }, 2000);
+        resetTimer = setTimeout(() => { link.textContent = original; }, 2000);
       }).catch(() => {});
     }
   });

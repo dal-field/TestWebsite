@@ -16,7 +16,7 @@ const CONSULT = {
   //   WEB3FORMS_KEY: 'your-access-key'
   // (Formspree also works: set FORM_ENDPOINT to your form URL and leave WEB3FORMS_KEY empty.)
   FORM_ENDPOINT: '',
-  WEB3FORMS_KEY: '',
+  WEB3FORMS_KEY: '11c55cb5-392b-438e-a2b0-8afb70a559b3',
   EMAIL: 'dallin@litflow.io',
 };
 
@@ -267,47 +267,54 @@ if ('IntersectionObserver' in window) {
       message: f.message.value.trim(),
     };
 
+    // Fallback: open a pre-filled email so the form always does something useful
+    const mailtoFallback = () => {
+      const subject = encodeURIComponent(`Consult request — ${data.name}`);
+      const body = encodeURIComponent(
+        `Name: ${data.name}\n` +
+        `Email: ${data.email}\n` +
+        (data.company ? `Company/firm: ${data.company}\n` : '') +
+        `Interested in: ${data.help}\n\n` +
+        `${data.message}\n`
+      );
+      window.location.href = `mailto:${CONSULT.EMAIL}?subject=${subject}&body=${body}`;
+      setNote('Opening your email app… if nothing happens, email me at ' + CONSULT.EMAIL + '.', 'success');
+    };
+
     // Path A: real async submission to a form endpoint (Web3Forms / Formspree)
-    if (CONSULT.FORM_ENDPOINT) {
+    const endpoint = CONSULT.FORM_ENDPOINT || (CONSULT.WEB3FORMS_KEY ? 'https://api.web3forms.com/submit' : '');
+    if (endpoint) {
       submit.disabled = true;
       setNote('Sending…', '');
       try {
         const payload = {
           ...data,
-          subject: `New consult request from ${data.name}`,
+          subject: `New consult request from ${data.name} — dallinlittlefield.com`,
           from_name: data.name,
         };
         if (CONSULT.WEB3FORMS_KEY) payload.access_key = CONSULT.WEB3FORMS_KEY;
-        const res = await fetch(CONSULT.FORM_ENDPOINT, {
+        const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload),
         });
-        if (res.ok) {
+        const result = await res.json().catch(() => ({}));
+        if (res.ok && result.success) {
           form.reset();
           setNote("Thanks — your message is on its way. I'll reply personally, usually within a day.", 'success');
         } else {
-          setNote('Something went wrong. Please email me directly at ' + CONSULT.EMAIL + '.', 'error');
+          mailtoFallback();
         }
       } catch (err) {
-        setNote('Network error. Please email me directly at ' + CONSULT.EMAIL + '.', 'error');
+        mailtoFallback();
       } finally {
         submit.disabled = false;
       }
       return;
     }
 
-    // Path B (default): open a pre-filled email so the form always does something useful
-    const subject = encodeURIComponent(`Consult request — ${data.name}`);
-    const body = encodeURIComponent(
-      `Name: ${data.name}\n` +
-      `Email: ${data.email}\n` +
-      (data.company ? `Company/firm: ${data.company}\n` : '') +
-      `Interested in: ${data.help}\n\n` +
-      `${data.message}\n`
-    );
-    window.location.href = `mailto:${CONSULT.EMAIL}?subject=${subject}&body=${body}`;
-    setNote('Opening your email app… if nothing happens, email me at ' + CONSULT.EMAIL + '.', 'success');
+    // Path B (default): no endpoint configured — use the mailto fallback
+    mailtoFallback();
   });
 
   // clear the invalid state as the user fixes a field

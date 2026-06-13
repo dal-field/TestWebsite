@@ -58,13 +58,13 @@ const projects = [
   },
   {
     title: 'Ward App',
-    domain: 'Congregation management',
+    domain: 'wardapp.org',
     tag: 'Web App',
     emoji: '📋',
     grad: 'linear-gradient(135deg, rgba(45,212,191,0.28), rgba(139,92,246,0.28))',
     desc: 'A tool for LDS congregation leaders to run meetings, take notes, and assign and track tasks. Member inputs are automatically aggregated into a live, public meeting-agenda page. In active weekly use by a congregation today.',
     badges: ['Railway', 'Auth', 'Automation'],
-    url: 'https://ward-app-production.up.railway.app/bishopric-followup',
+    url: 'https://wardapp.org',
     status: 'Live',
   },
   {
